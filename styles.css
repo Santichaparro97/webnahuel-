@@ -649,23 +649,60 @@ h1, h2, h3, h4, p { margin: 0; }
   flex: 0 0 195px;
 }
 
-/* === FEATURED CARDS (más vendidos, imágenes pre-armadas) === */
+/* === FEATURED CARDS (más vendidos): imagen arriba + info abajo === */
 .featured-card {
-  flex: 0 0 240px;
+  flex: 0 0 230px;
   cursor: pointer;
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--panel-solid);
   border: 1px solid var(--line);
   transition: transform .25s ease-out, border-color .25s, box-shadow .25s;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-.featured-card img {
+.featured-card .fc-image {
   width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 245 / 305;
+  aspect-ratio: 1 / 1;
+  background: #0a0a14;
+  overflow: hidden;
+}
+.featured-card .fc-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
+}
+.featured-card .fc-info {
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--line);
+}
+.featured-card .fc-title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--text-soft);
+  line-height: 1.35;
+  text-transform: uppercase;
+  /* máx 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
+}
+.featured-card .fc-price {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  letter-spacing: -.01em;
 }
 .featured-card:hover {
   transform: translateY(-4px);

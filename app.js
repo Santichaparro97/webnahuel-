@@ -337,16 +337,16 @@ function renderTenant() {
 // 8 cards con imágenes pre-armadas. Click → busca el producto en la DB y
 // abre el modal. Auto-scroll infinito izq → der con pausa al hover.
 const FEATURED_CARDS = [
-  // 4 hombre
-  { img: 'masvendido/sauvage-dior.png',   match: ['SAUVAGE', 'Dior'] },
-  { img: 'masvendido/bleu-chanel.png',    match: ['BLEU', 'CHANEL'] },
-  { img: 'masvendido/club-de-nuit.png',   match: ['CLUB DE NUIT', 'INTENSE'] },
-  { img: 'masvendido/212-men-aqua.png',   match: ['212 MEN AQUA'] },
+  // 4 hombre — title y price son los que se muestran abajo de la imagen
+  { img: 'masvendido/sauvage-dior.png',     title: 'SAUVAGE PARFUM - DIOR',          price: 8300,  match: ['SAUVAGE', 'Dior'] },
+  { img: 'masvendido/bleu-chanel.png',      title: 'BLEU DE CHANEL PARFUM',          price: 11000, match: ['BLEU', 'CHANEL'] },
+  { img: 'masvendido/club-de-nuit.png',     title: 'CLUB DE NUIT INTENSE MAN',       price: 9250,  match: ['CLUB DE NUIT', 'INTENSE'] },
+  { img: 'masvendido/212-men-aqua.png',     title: '212 MEN AQUA - CAROLINA HERRERA', price: 11000, match: ['212 MEN AQUA'] },
   // 4 mujer
-  { img: 'masvendido/212-vip-black.png',  match: ['212 VIP BLACK'] },
-  { img: 'masvendido/black-opium.png',    match: ['BLACK OPIUM'] },
-  { img: 'masvendido/good-girl.png',      match: ['GOOD GIRL'] },
-  { img: 'masvendido/la-vie-est-belle.png', match: ['LA VIE EST BELLE', 'VIE EST BELLE'] },
+  { img: 'masvendido/212-vip-black.png',    title: '212 VIP BLACK - CAROLINA HERRERA', price: 12000, match: ['212 VIP BLACK'] },
+  { img: 'masvendido/black-opium.png',      title: 'BLACK OPIUM - YVES SAINT LAURENT', price: 12500, match: ['BLACK OPIUM'] },
+  { img: 'masvendido/good-girl.png',        title: 'GOOD GIRL - CAROLINA HERRERA',   price: 12000, match: ['GOOD GIRL'] },
+  { img: 'masvendido/la-vie-est-belle.png', title: 'LA VIE EST BELLE - LANCÔME',     price: 11500, match: ['LA VIE EST BELLE', 'VIE EST BELLE'] },
 ];
 
 function findProductByKeywords(keywords) {
@@ -393,11 +393,18 @@ function renderFeatured() {
 function makeFeaturedCard(card) {
   const el = document.createElement('article');
   el.className = 'featured-card';
-  el.innerHTML = `<img src="${escapeHtml(card.img)}" alt="${escapeHtml((card.product && card.product.title) || 'Producto destacado')}" loading="lazy" />`;
+  el.innerHTML = `
+    <div class="fc-image">
+      <img src="${escapeHtml(card.img)}" alt="${escapeHtml(card.title)}" loading="lazy" />
+    </div>
+    <div class="fc-info">
+      <h3 class="fc-title">${escapeHtml(card.title)}</h3>
+      <p class="fc-price">${fmtPrice(card.price)}</p>
+    </div>
+  `;
   if (card.product) {
     el.onclick = () => openProduct(card.product);
   } else {
-    // Si no encontró producto, scroll al catálogo
     el.onclick = () => {
       const cat = document.getElementById('categories');
       if (cat) cat.scrollIntoView({ behavior: 'smooth' });
