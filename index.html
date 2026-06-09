@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>De La Ostia Perfumes - Tienda online</title>
+  <meta name="description" content="Venta por menor y mayor de Perfumes Replicas Premium." />
+  <meta name="keywords" content="perfume, lata, mujer, hombre" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#0a0a14" />
+  <link rel="icon" href="https://tap-pencyinfra-prod.s3.amazonaws.com/perfumescyc/1687395490547.jpg" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Three.js + GSAP via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="fx-active">
+  <!-- LANDING PARTICLE FX -->
+  <div id="landing-fx" class="landing-fx">
+    <div class="landing-bg-text" aria-hidden="true">
+      <span>DE LA OSTIA</span>
+      <span>PERFUMES</span>
+    </div>
+
+    <!-- Tira superior: marcas pasando de derecha a izquierda -->
+    <div class="brand-marquee brand-marquee-top" aria-hidden="true">
+      <div class="brand-marquee-track">
+        <!-- Contenido duplicado 2x para loop perfecto -->
+        <span>DIOR</span><span class="sep">·</span>
+        <span>CHANEL</span><span class="sep">·</span>
+        <span>CAROLINA HERRERA</span><span class="sep">·</span>
+        <span>PACO RABANNE</span><span class="sep">·</span>
+        <span>GIORGIO ARMANI</span><span class="sep">·</span>
+        <span>VERSACE</span><span class="sep">·</span>
+        <span>LE LABO</span><span class="sep">·</span>
+        <span>TOM FORD</span><span class="sep">·</span>
+        <span>BVLGARI</span><span class="sep">·</span>
+        <span>AZZARO</span><span class="sep">·</span>
+        <span>HUGO BOSS</span><span class="sep">·</span>
+        <span>DIOR</span><span class="sep">·</span>
+        <span>CHANEL</span><span class="sep">·</span>
+        <span>CAROLINA HERRERA</span><span class="sep">·</span>
+        <span>PACO RABANNE</span><span class="sep">·</span>
+        <span>GIORGIO ARMANI</span><span class="sep">·</span>
+        <span>VERSACE</span><span class="sep">·</span>
+        <span>LE LABO</span><span class="sep">·</span>
+        <span>TOM FORD</span><span class="sep">·</span>
+        <span>BVLGARI</span><span class="sep">·</span>
+        <span>AZZARO</span><span class="sep">·</span>
+        <span>HUGO BOSS</span><span class="sep">·</span>
+      </div>
+    </div>
+
+    <!-- Tira inferior: misma lista, dirección opuesta -->
+    <div class="brand-marquee brand-marquee-bottom" aria-hidden="true">
+      <div class="brand-marquee-track brand-marquee-reverse">
+        <span>DIOR</span><span class="sep">·</span>
+        <span>CHANEL</span><span class="sep">·</span>
+        <span>CAROLINA HERRERA</span><span class="sep">·</span>
+        <span>PACO RABANNE</span><span class="sep">·</span>
+        <span>GIORGIO ARMANI</span><span class="sep">·</span>
+        <span>VERSACE</span><span class="sep">·</span>
+        <span>LE LABO</span><span class="sep">·</span>
+        <span>TOM FORD</span><span class="sep">·</span>
+        <span>BVLGARI</span><span class="sep">·</span>
+        <span>AZZARO</span><span class="sep">·</span>
+        <span>HUGO BOSS</span><span class="sep">·</span>
+        <span>DIOR</span><span class="sep">·</span>
+        <span>CHANEL</span><span class="sep">·</span>
+        <span>CAROLINA HERRERA</span><span class="sep">·</span>
+        <span>PACO RABANNE</span><span class="sep">·</span>
+        <span>GIORGIO ARMANI</span><span class="sep">·</span>
+        <span>VERSACE</span><span class="sep">·</span>
+        <span>LE LABO</span><span class="sep">·</span>
+        <span>TOM FORD</span><span class="sep">·</span>
+        <span>BVLGARI</span><span class="sep">·</span>
+        <span>AZZARO</span><span class="sep">·</span>
+        <span>HUGO BOSS</span><span class="sep">·</span>
+      </div>
+    </div>
+
+    <img id="hero-bottle-img" class="hero-bottle-img" alt="" referrerpolicy="no-referrer" />
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- BIENVENIDO: aparece al final de la desintegración, justo antes de entrar a la web -->
+    <div id="hero-welcome" class="hero-welcome" aria-hidden="true">
+      <span class="welcome-main">BIENVENIDO</span>
+    </div>
+
+    <div class="landing-hint">
+      <span>Scrolleá para descubrir</span>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Animated background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="brand">
+        <img id="logo" alt="logo" class="logo" referrerpolicy="no-referrer" />
+        <div class="brand-text">
+          <h1 id="title" class="brand-title"></h1>
+          <p id="brand-tagline" class="brand-tagline">Perfumería online de réplicas premium</p>
+          <div class="brand-pill">
+            <span class="dot"></span>
+            Envíos a todo el país · Puntos de encuentro en Zona Norte
+          </div>
+        </div>
+      </div>
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#categories" class="nav-link" data-nav="catalogo">Catálogo</a>
+        <a href="#marcas" class="nav-link" data-nav="marcas">Marcas</a>
+        <a id="nav-contact" href="#" target="_blank" rel="noopener" class="nav-link" data-nav="contacto">Contacto</a>
+      </nav>
+      <div class="header-actions">
+        <a id="instagram-link" target="_blank" rel="noopener" class="btn-ghost" title="Instagram">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 2c-3.1 0-3.5 0-4.7.1-1 0-1.5.2-1.9.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.4-.3.9-.3 1.9-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c0 1 .2 1.5.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.4.1.9.3 1.9.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1 0 1.5-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.4.3-.9.3-1.9.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c0-1-.2-1.5-.3-1.9-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.4-.1-.9-.3-1.9-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.4a4.4 4.4 0 110 8.8 4.4 4.4 0 010-8.8zm0 7.3a2.9 2.9 0 100-5.8 2.9 2.9 0 000 5.8zm5.6-7.5a1 1 0 11-2 0 1 1 0 012 0z"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a id="whatsapp-link" target="_blank" rel="noopener" class="btn-cta" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5zM12 20a8 8 0 01-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1112 20z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <button id="cart-header" class="btn-cart-header" aria-label="Ver carrito" title="Carrito">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/>
+          </svg>
+          <span id="cart-header-count" class="cart-header-count empty">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span>FRAGANCIAS PREMIUM</span>
+        </div>
+        <h2 class="hero-title">
+          <span class="hero-title-line">Encontrá tu <span class="grad">esencia</span></span>
+          <span class="hero-title-line">en una sola fragancia</span>
+        </h2>
+        <p class="hero-sub">
+          Más de <strong id="hero-count">1.400</strong> réplicas premium y árabes originales.<br />
+          Envíos a todo el país y atención personalizada por WhatsApp.
+        </p>
+        <div class="hero-cta">
+          <a href="#categories" class="btn-primary">
+            Ver catálogo
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a id="hero-wsp" href="#" target="_blank" rel="noopener" class="btn-secondary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+
+      <!-- Podio central: imagen única con botellas + arco neon ya compuesto -->
+      <div class="hero-podium" aria-hidden="true">
+        <img class="podium-img" src="disenio/podio.png" alt="Composición de fragancias premium" />
+      </div>
+
+      <div class="hero-trust" id="hero-trust">
+        <div class="trust-item reveal" data-delay="0">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h13l5 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z"/></svg>
+          </span>
+          <div>
+            <strong>Envíos nacionales</strong>
+            <small>A todo el país</small>
+          </div>
+        </div>
+        <div class="trust-item reveal" data-delay="80">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <strong>Compra segura</strong>
+            <small>Pago por WhatsApp</small>
+          </div>
+        </div>
+        <div class="trust-item reveal" data-delay="160">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.5 5 5.5.5-4 4 1 5.5L12 14.5 7 17l1-5.5-4-4 5.5-.5L12 2z"/></svg>
+          </span>
+          <div>
+            <strong>Calidad premium</strong>
+            <small>Réplicas AAA</small>
+          </div>
+        </div>
+        <div class="trust-item reveal" data-delay="240">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a9 9 0 11-3.4-7"/><path d="M21 3v6h-6"/></svg>
+          </span>
+          <div>
+            <strong>Atención inmediata</strong>
+            <small>Respuesta en minutos</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CAROUSEL -->
+  <section id="featured-section" class="featured reveal" hidden>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Selección de la casa</p>
+          <h2 class="section-title">Más vendidos</h2>
+        </div>
+        <div class="carousel-controls">
+          <button id="carousel-prev" class="ctrl-btn" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button id="carousel-next" class="ctrl-btn" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="carousel-wrap">
+        <div id="featured-track" class="carousel-track"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="filters reveal">
+    <div class="container">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="search" type="search" placeholder="Buscar Dior, Carolina Herrera, Le Labo..." />
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container" id="categories">
+    <!-- Search-results view -->
+    <section id="search-view" hidden>
+      <div class="results-bar">
+        <span id="results-count" class="results-count"></span>
+        <button id="clear-search" class="link-btn">Limpiar búsqueda</button>
+      </div>
+      <div id="products-grid" class="products-grid"></div>
+      <p id="empty-msg" class="empty" hidden>No se encontraron productos.</p>
+    </section>
+
+    <!-- Catálogo: grid de cards (8 por página, con flechas) -->
+    <section id="categories-view" class="reveal">
+      <div class="catalog-head">
+        <div class="catalog-head-left">
+          <p class="section-eyebrow">Catálogo completo</p>
+          <h2 class="section-title">Explorá por categoría</h2>
+        </div>
+        <div class="catalog-head-right">
+          <div class="catalog-search-wrap">
+            <svg class="search-icon-sm" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input id="catalog-search" type="search" placeholder="Buscar categoría..." />
+          </div>
+          <div class="catalog-pagination">
+            <button id="cat-prev" class="ctrl-btn" aria-label="Anterior">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span id="cat-pages-indicator" class="cat-pages-indicator">1 / 1</span>
+            <button id="cat-next" class="ctrl-btn" aria-label="Siguiente">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards (4x2 grid) -->
+      <div id="category-cards-grid" class="category-cards-grid"></div>
+
+      <!-- Trust strip -->
+      <div class="catalog-trust">
+        <div class="trust-strip-item">
+          <span class="trust-strip-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.07 7.07l4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m7.07-7.07l4.24-4.24"/></svg>
+          </span>
+          <div>
+            <strong>Precios mayoristas</strong>
+            <small>Descuentos por cantidad</small>
+          </div>
+        </div>
+        <div class="trust-strip-item">
+          <span class="trust-strip-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <div>
+            <strong>Compra segura</strong>
+            <small>Tus datos protegidos</small>
+          </div>
+        </div>
+        <div class="trust-strip-item">
+          <span class="trust-strip-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-7h3v5zM3 19a2 2 0 0 0 2 2h1v-7H3v5z"/></svg>
+          </span>
+          <div>
+            <strong>Atención personalizada</strong>
+            <small>Estamos para ayudarte</small>
+          </div>
+        </div>
+        <div class="trust-strip-item">
+          <span class="trust-strip-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </span>
+          <div>
+            <strong>Envíos a todo el país</strong>
+            <small>Rápidos y seguros</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom CTA: consultar mayorista por WhatsApp -->
+      <div class="catalog-cta">
+        <div class="catalog-cta-text">
+          <p class="section-eyebrow">Mayorista y minorista</p>
+          <h2 class="catalog-cta-title">Calidad, variedad<br>y los mejores precios</h2>
+          <p class="catalog-cta-sub">Trabajamos con todo el país.<br>Consultanos por precios mayoristas.</p>
+          <a id="cta-mayorista" href="#" target="_blank" rel="noopener" class="btn-cta-outline">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5z"/></svg>
+            Consultar mayorista
+          </a>
+        </div>
+        <img src="disenio/cta-bottles.png" class="catalog-cta-img" alt="" referrerpolicy="no-referrer" />
+      </div>
+
+      <!-- Vista de productos de una categoría (se muestra al hacer click en una card) -->
+      <div id="category-products-view" class="category-products-view" hidden>
+        <div class="category-products-head">
+          <button id="back-to-categories" class="back-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Volver a categorías
+          </button>
+          <h2 id="category-products-title" class="category-products-title"></h2>
+          <span id="category-products-count" class="category-products-count"></span>
+        </div>
+        <div id="category-products-grid" class="products-grid"></div>
+        <div id="category-products-loadmore"></div>
+      </div>
+
+      <!-- (Accordion completo eliminado: ya no se usa) -->
+      <div id="categories-list" class="categories-list hidden" hidden></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand" id="footer-title"></p>
+        <p class="muted">Réplicas premium · Perfumería online</p>
+      </div>
+      <div class="footer-social">
+        <a id="footer-ig" target="_blank" rel="noopener" class="btn-ghost-sm" title="Instagram">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2z"/></svg>
+          Instagram
+        </a>
+        <a id="footer-wsp" target="_blank" rel="noopener" class="btn-ghost-sm" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> · Réplica visual con fines de demostración</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING CART BUTTON -->
+  <button id="cart-fab" class="cart-fab" aria-label="Ver carrito">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.4 2.5c-.2.3-.2.6 0 .9.1.3.4.4.7.4h12v-2H10.4l1.1-2h7.5c.4 0 .7-.2.9-.6L23 8H6.2L5.3 6H7V4zm0 16a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+    <span id="cart-count" class="cart-count empty">0</span>
+  </button>
+
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content modal-product">
+      <button class="modal-close" data-close aria-label="Cerrar">×</button>
+      <div class="modal-body">
+        <div class="modal-img-wrap">
+          <img id="modal-img" alt="" referrerpolicy="no-referrer" />
+        </div>
+        <div class="modal-info">
+          <p id="modal-category" class="modal-cat"></p>
+          <h2 id="modal-title"></h2>
+          <p id="modal-price" class="modal-price"></p>
+          <p id="modal-description" class="modal-desc"></p>
+          <p id="modal-stock" class="modal-stock"></p>
+          <div class="qty-row">
+            <span class="qty-label">Cantidad</span>
+            <div class="qty-controls">
+              <button id="qty-minus" aria-label="Restar">−</button>
+              <span id="qty-val">1</span>
+              <button id="qty-plus" aria-label="Sumar">+</button>
+            </div>
+          </div>
+          <button id="add-to-cart" class="btn-primary btn-block">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART MODAL -->
+  <div id="cart-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content modal-cart">
+      <button class="modal-close" data-close aria-label="Cerrar">×</button>
+      <h2 class="cart-title">Tu carrito</h2>
+      <div id="cart-items"></div>
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cart-total">$0</strong>
+      </div>
+      <button id="checkout-wsp" class="btn-primary btn-wsp-full btn-block">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5z"/></svg>
+        Finalizar por WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script src="data/data.js"></script>
+  <script src="data/perfume3d.js"></script>
+  <script src="app.js"></script>
+  <script src="landing-fx.js"></script>
+</body>
+</html>
