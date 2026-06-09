@@ -638,8 +638,8 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .carousel-track {
   display: flex;
-  gap: 18px;
-  padding: 8px 4px 24px;
+  gap: 13px;
+  padding: 6px 4px 18px;
   width: max-content;
   will-change: transform;
   /* Sin scroll: el movimiento lo maneja JS con transform via rAF */
@@ -651,7 +651,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 /* === FEATURED CARDS (más vendidos): imagen arriba + info abajo === */
 .featured-card {
-  flex: 0 0 230px;
+  flex: 0 0 165px;
   cursor: pointer;
   border-radius: var(--radius);
   overflow: hidden;
@@ -674,32 +674,31 @@ h1, h2, h3, h4, p { margin: 0; }
   display: block;
 }
 .featured-card .fc-info {
-  padding: 14px 14px 16px;
+  padding: 10px 11px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   border-top: 1px solid var(--line);
 }
 .featured-card .fc-title {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  font-size: .8rem;
+  font-size: .7rem;
   font-weight: 600;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   color: var(--text-soft);
-  line-height: 1.35;
+  line-height: 1.3;
   text-transform: uppercase;
-  /* máx 2 líneas */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.7em;
+  min-height: 2.4em;
 }
 .featured-card .fc-price {
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.15rem;
+  font-size: .95rem;
   font-weight: 700;
   color: var(--neon-cyan);
   letter-spacing: -.01em;
