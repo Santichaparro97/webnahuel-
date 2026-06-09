@@ -515,20 +515,27 @@ h1, h2, h3, h4, p { margin: 0; }
      solo quedan visibles las botellas y el arco neon */
   mix-blend-mode: lighten;
   /* Mask radial: los bordes se difuminan en todas direcciones */
+  /* Mask mucho más gradual: el solid empieza a difuminarse al 22% en lugar
+     de al 45%, con 4 paradas suaves. Resultado: los bordes de la imagen se
+     funden completamente al fondo sin líneas visibles. */
   -webkit-mask-image: radial-gradient(
-    ellipse 65% 70% at 50% 55%,
+    ellipse 60% 65% at 50% 55%,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 45%,
-    rgba(0,0,0,.7) 65%,
-    rgba(0,0,0,.25) 85%,
+    rgba(0,0,0,.92) 22%,
+    rgba(0,0,0,.7) 40%,
+    rgba(0,0,0,.42) 60%,
+    rgba(0,0,0,.18) 78%,
+    rgba(0,0,0,.06) 90%,
     transparent 100%
   );
           mask-image: radial-gradient(
-    ellipse 65% 70% at 50% 55%,
+    ellipse 60% 65% at 50% 55%,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 45%,
-    rgba(0,0,0,.7) 65%,
-    rgba(0,0,0,.25) 85%,
+    rgba(0,0,0,.92) 22%,
+    rgba(0,0,0,.7) 40%,
+    rgba(0,0,0,.42) 60%,
+    rgba(0,0,0,.18) 78%,
+    rgba(0,0,0,.06) 90%,
     transparent 100%
   );
   animation: podiumFloat 5s ease-in-out infinite;
