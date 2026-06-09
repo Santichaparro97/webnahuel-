@@ -46,8 +46,9 @@
           highlight:    settingsObj.highlight || '',
           phone:        settingsObj.phone || '',
           instagram:    settingsObj.instagram || '',
-          logo:         '',
-          banner:       '',
+          // Logo local circular (no depende de servidores externos)
+          logo:         settingsObj.logo || 'disenio/favicon.png',
+          banner:       settingsObj.banner || '',
         },
         products: (products || []).map(p => ({
           id: p.legacy_id || String(p.title),
