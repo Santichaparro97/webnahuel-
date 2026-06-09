@@ -22,6 +22,10 @@ const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({
 
 // ===== INIT =====
 async function init() {
+  // Si Supabase está configurado, esperamos a que cargue antes de seguir
+  if (window.__supabaseDataReady) {
+    try { await window.__supabaseDataReady; } catch (e) { console.warn('Supabase falló, sigo con legacy:', e); }
+  }
   let data;
   if (window.DATA) {
     data = window.DATA;
@@ -652,13 +656,40 @@ function openCart() {
   openModal('#cart-modal');
 }
 
-function checkoutWhatsapp() {
+async function checkoutWhatsapp() {
   if (CART.length === 0) return;
-  const lines = ['*Hola! Quiero hacer un pedido:*', ''];
+  const total = CART.reduce((s, i) => s + i.price * i.qty, 0);
+
+  // 1) Guardar el pedido en Supabase si está configurado (no bloquea WhatsApp si falla)
+  let orderNumber = null;
+  if (window.__sb) {
+    try {
+      const { data, error } = await window.__sb
+        .from('orders')
+        .insert({
+          items: CART.map(i => ({
+            id: i.id, title: i.title, price: i.price, qty: i.qty, image: i.image,
+          })),
+          subtotal: total,
+          total: total,
+          payment_method: 'whatsapp',
+          status: 'pendiente',
+          whatsapp_sent: true,
+        })
+        .select('order_number')
+        .single();
+      if (error) console.warn('No se pudo guardar el pedido en DB:', error);
+      else orderNumber = data?.order_number;
+    } catch (e) { console.warn('Error guardando pedido:', e); }
+  }
+
+  // 2) Armar mensaje y abrir WhatsApp
+  const lines = ['*Hola! Quiero hacer un pedido:*'];
+  if (orderNumber) lines.push(`Pedido #${orderNumber}`);
+  lines.push('');
   CART.forEach(i => {
     lines.push(`• ${i.title} x${i.qty} — ${fmtPrice(i.price * i.qty)}`);
   });
-  const total = CART.reduce((s, i) => s + i.price * i.qty, 0);
   lines.push('', `*Total:* ${fmtPrice(total)}`);
   const msg = encodeURIComponent(lines.join('\n'));
   window.open(`https://wa.me/${TENANT.phone}?text=${msg}`, '_blank');
