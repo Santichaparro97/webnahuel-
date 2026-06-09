@@ -1838,19 +1838,22 @@ body.fx-active > *:not(#landing-fx):not(script):not(style) {
 .landing-bg-text span {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.9rem, 16vw, 14.5rem); /* 9/10 del tamaño anterior */
-  font-weight: 300;
+  font-size: clamp(2.9rem, 16vw, 14.5rem);
+  /* Font-weight 500 (antes 300): trazos más gruesos hacen que el outline
+     interno y externo se fusionen en E, R, A, B y demás letras con
+     uniones de trazos. Quedan limpias en vez de duplicadas. */
+  font-weight: 500;
   letter-spacing: .22em;
   line-height: .9;
   text-transform: uppercase;
   white-space: nowrap;
-  /* Outline neon sutil: letras huecas con borde cyan y leve glow */
+  /* Outline neon más marcado: 1.7px al 70% opacidad */
   color: transparent;
-  -webkit-text-stroke: 1px rgba(0, 240, 255, .55);
-          text-stroke: 1px rgba(0, 240, 255, .55);
+  -webkit-text-stroke: 1.7px rgba(0, 240, 255, .7);
+          text-stroke: 1.7px rgba(0, 240, 255, .7);
   text-shadow:
-    0 0 4px rgba(0, 240, 255, .35),
-    0 0 8px rgba(0, 240, 255, .18);
+    0 0 5px rgba(0, 240, 255, .45),
+    0 0 10px rgba(0, 240, 255, .25);
 }
 .landing-bg-text span:nth-child(1) {
   transform: translateY(-.25em);
