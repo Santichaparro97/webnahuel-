@@ -874,15 +874,43 @@ h1, h2, h3, h4, p { margin: 0; }
   grid-template-columns: 1fr 28px;
   gap: 8px;
   padding: 13px 13px 12px;
-  background: linear-gradient(145deg, rgba(20,20,42,.7) 0%, rgba(10,10,24,.85) 100%);
+  /* La imagen de fondo (cata1-12) se setea inline por JS */
+  background-size: cover;
+  background-position: center;
+  background-color: #0a0a14;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
   transition: transform .25s, border-color .25s, box-shadow .25s;
-  min-height: 165px;
-  backdrop-filter: blur(8px);
+  min-height: 175px;
   isolation: isolate;
+}
+/* Overlay gradient para que el texto a la izquierda sea legible
+   sobre la imagen de fondo (dark a la izquierda, transparent a la derecha) */
+.category-card .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 7, 13, .92) 0%,
+    rgba(7, 7, 13, .78) 35%,
+    rgba(7, 7, 13, .35) 65%,
+    rgba(7, 7, 13, .05) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+/* Número grande arriba en cyan tema, estilo modelo */
+.category-card .card-count {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--theme);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin-bottom: 6px;
+  text-shadow: 0 0 18px rgba(0, 240, 255, .25);
 }
 .category-card {
   animation: cardFloat 5s ease-in-out infinite;
@@ -914,9 +942,9 @@ h1, h2, h3, h4, p { margin: 0; }
   display: flex;
   flex-direction: column;
   min-width: 0;
-  /* Reserva espacio en el ángulo inferior derecho para la imagen,
-     así el texto no la pisa nunca */
-  padding-right: 60px;
+  /* Ahora la imagen ES el fondo de todo el card, no necesita padding-right.
+     Mantengo un poco para que el texto no pegue al icono. */
+  padding-right: 10px;
 }
 .category-card .card-title {
   /* Tipografía Cormorant Garamond italic + uppercase para todas las cards */
@@ -966,8 +994,8 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .category-card:hover .card-explorar { gap: 10px; }
 .category-card .card-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -975,15 +1003,19 @@ h1, h2, h3, h4, p { margin: 0; }
   border: 1px solid currentColor;
   align-self: flex-start;
   flex-shrink: 0;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(4px);
   z-index: 2;
+  position: relative;
 }
-.category-card .card-icon svg { width: 12px; height: 12px; }
+.category-card .card-icon svg { width: 13px; height: 13px; }
 
 /* Imagen de producto + glow temático: chica, en el ángulo inferior derecho.
    Fondo del catálogo (mármol/madera) se desvanece con mask + blend para que
    solo quede la silueta de la botella integrada al card. */
-.category-card .card-product-wrap {
+/* Producto chico de la esquina ya no se usa (la imagen es el fondo entero) */
+.category-card .card-product-wrap { display: none; }
+.category-card .card-product-wrap-disabled {
   position: absolute;
   bottom: 6px;
   right: 6px;

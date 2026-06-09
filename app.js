@@ -174,28 +174,28 @@ function makeCategoryCard(cat, indexInPage) {
 
   const el = document.createElement('article');
   el.className = `category-card theme-${theme}`;
-  // Tamaño auto-adaptativo del título según longitud
-  // Genera 3 buckets: corto, medio, largo → CSS aplica el tamaño correcto
   const titleLen = cat.name.length;
   const sizeClass = titleLen <= 20 ? 'size-lg' : titleLen <= 30 ? 'size-md' : 'size-sm';
 
+  // Cata image cíclica: 12 imágenes → cada categoría obtiene una.
+  // El índice se toma del array GLOBAL de categorías para que la misma
+  // categoría tenga siempre la misma imagen (no cambia entre páginas).
+  const globalIndex = CATEGORIES.findIndex(c => c.name === cat.name);
+  const cataNum = (globalIndex % 12) + 1;
+  el.style.backgroundImage = `url('catalogo/cata${cataNum}.png')`;
+
   el.innerHTML = `
+    <div class="card-overlay"></div>
     <div class="card-info">
+      <div class="card-count">${cat.count}</div>
       <h3 class="card-title ${sizeClass}">${escapeHtml(cat.name)}</h3>
       <p class="card-desc">${escapeHtml(meta.desc)}</p>
       <span class="card-explorar">
         Explorar
-        <span class="card-explorar-count">${cat.count} productos</span>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </span>
     </div>
     <div class="card-icon">${CARD_ICONS[meta.icon] || CARD_ICONS.star}</div>
-    ${product ? `
-      <div class="card-product-wrap">
-        <div class="card-product-glow"></div>
-        <img referrerpolicy="no-referrer" src="${escapeHtml(product.images[0])}" alt="" onerror="this.style.display='none'" />
-      </div>
-    ` : ''}
   `;
   el.onclick = () => openCategoryFromCard(cat.name);
   return el;
