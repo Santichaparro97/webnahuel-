@@ -1842,9 +1842,15 @@ body.fx-active > *:not(#landing-fx):not(script):not(style) {
   font-weight: 300;
   letter-spacing: .22em;
   line-height: .9;
-  color: rgba(220, 235, 255, .14);
   text-transform: uppercase;
   white-space: nowrap;
+  /* Outline neon sutil: letras huecas con borde cyan y leve glow */
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 240, 255, .55);
+          text-stroke: 1px rgba(0, 240, 255, .55);
+  text-shadow:
+    0 0 4px rgba(0, 240, 255, .35),
+    0 0 8px rgba(0, 240, 255, .18);
 }
 .landing-bg-text span:nth-child(1) {
   transform: translateY(-.25em);
