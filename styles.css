@@ -901,17 +901,7 @@ h1, h2, h3, h4, p { margin: 0; }
   pointer-events: none;
   z-index: 0;
 }
-/* Número grande arriba en cyan tema, estilo modelo */
-.category-card .card-count {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: var(--theme);
-  line-height: 1;
-  letter-spacing: -.02em;
-  margin-bottom: 6px;
-  text-shadow: 0 0 18px rgba(0, 240, 255, .25);
-}
+/* (Número grande arriba removido: el count va al lado de "Explorar" abajo) */
 .category-card {
   animation: cardFloat 5s ease-in-out infinite;
 }
