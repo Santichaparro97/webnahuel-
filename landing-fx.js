@@ -201,8 +201,8 @@
         // Posición: mapeo centrado y escalado al viewport, manteniendo aspect
         positions.push((x - cx) * scale, (cy - y) * scale, 0);
 
-        // Color: del píxel original con leve boost
-        const boost = 1.12;
+        // Color: del píxel original con boost más fuerte (5/10 → 6/10)
+        const boost = 1.30;
         colors.push(
           Math.min(1, (r / 255) * boost),
           Math.min(1, (g / 255) * boost),
@@ -450,20 +450,22 @@
         varying float vProgress;
 
         void main() {
-          // Círculo suave (no cuadrado)
           vec2 cc = gl_PointCoord - vec2(0.5);
           float d = length(cc);
           if (d > 0.5) discard;
-          float soft = 1.0 - smoothstep(0.18, 0.5, d);
+          // Falloff más estrecho: el núcleo brillante ocupa más espacio
+          // (5/10 → 6/10). Antes 0.18 → 0.5, ahora 0.22 → 0.5: núcleo +22%
+          float soft = 1.0 - smoothstep(0.22, 0.5, d);
 
-          // Fade escalonado: cada partícula tiene su propio "umbral" según vRandom.
-          // Unas se desvanecen antes (vRandom bajo), otras después (vRandom alto).
+          // Fade escalonado por partícula (sin cambios)
           float fadeStart = mix(0.15, 0.80, vRandom);
           float fadeEnd   = fadeStart + 0.18;
           float particleAlpha = 1.0 - smoothstep(fadeStart, fadeEnd, vProgress);
 
-          // Viraje a tono frío "polvo" a medida que avanza el progreso
+          // Viraje a tono frío
           vec3 col = mix(vColor, uDispersionColor, vProgress * 0.55);
+          // Boost de brillo final (+18%) sin saturar a blanco gracias al clamp
+          col = clamp(col * 1.18, 0.0, 1.0);
 
           gl_FragColor = vec4(col, soft * particleAlpha);
         }
