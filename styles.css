@@ -639,19 +639,42 @@ h1, h2, h3, h4, p { margin: 0; }
 .carousel-track {
   display: flex;
   gap: 18px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   padding: 8px 4px 24px;
-  scrollbar-width: none;
+  width: max-content;
+  will-change: transform;
+  /* Sin scroll: el movimiento lo maneja JS con transform via rAF */
 }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-track .product-card {
   flex: 0 0 195px;
-  scroll-snap-align: start;
+}
+
+/* === FEATURED CARDS (más vendidos, imágenes pre-armadas) === */
+.featured-card {
+  flex: 0 0 240px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-solid);
+  border: 1px solid var(--line);
+  transition: transform .25s ease-out, border-color .25s, box-shadow .25s;
+  position: relative;
+}
+.featured-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 245 / 305;
+  object-fit: cover;
+}
+.featured-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 30px rgba(0, 240, 255, .25);
 }
 @media (max-width: 600px) {
   .carousel-track .product-card { flex: 0 0 70vw; }
+  .featured-card { flex: 0 0 64vw; }
 }
 
 /* ====================================================================

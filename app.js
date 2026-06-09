@@ -333,40 +333,103 @@ function renderTenant() {
   });
 }
 
-// ===== FEATURED CAROUSEL =====
+// ===== FEATURED CAROUSEL (más vendidos) =====
+// 8 cards con imágenes pre-armadas. Click → busca el producto en la DB y
+// abre el modal. Auto-scroll infinito izq → der con pausa al hover.
+const FEATURED_CARDS = [
+  // 4 hombre
+  { img: 'masvendido/sauvage-dior.png',   match: ['SAUVAGE', 'Dior'] },
+  { img: 'masvendido/bleu-chanel.png',    match: ['BLEU', 'CHANEL'] },
+  { img: 'masvendido/club-de-nuit.png',   match: ['CLUB DE NUIT', 'INTENSE'] },
+  { img: 'masvendido/212-men-aqua.png',   match: ['212 MEN AQUA'] },
+  // 4 mujer
+  { img: 'masvendido/212-vip-black.png',  match: ['212 VIP BLACK'] },
+  { img: 'masvendido/black-opium.png',    match: ['BLACK OPIUM'] },
+  { img: 'masvendido/good-girl.png',      match: ['GOOD GIRL'] },
+  { img: 'masvendido/la-vie-est-belle.png', match: ['LA VIE EST BELLE', 'VIE EST BELLE'] },
+];
+
+function findProductByKeywords(keywords) {
+  // Busca el producto cuyo título contenga todas las keywords (case insensitive)
+  // Prefiere los que tengan stock > 0
+  const upperKws = keywords.map(k => k.toUpperCase());
+  const matches = PRODUCTS.filter(p => {
+    const title = (p.title || '').toUpperCase();
+    return upperKws.every(kw => title.includes(kw));
+  });
+  if (matches.length === 0) return null;
+  // Priorizar con stock
+  const inStock = matches.find(p => !(p.handleStock && p.currentStock <= 0));
+  return inStock || matches[0];
+}
+
 function renderFeatured() {
-  const featured = PRODUCTS.filter(p => p.featured);
-  // If no explicit featured, pick top of first popular categories
-  let list = featured;
-  if (list.length < 6) {
-    const fallbackCats = ['Réplica Importada', 'Réplicas Premium AAA de hombre', 'Réplicas Premium AAA de mujer', 'TUBOS ARABES 35ml'];
-    const extra = PRODUCTS
-      .filter(p => fallbackCats.includes(p.category) && !(p.handleStock && p.currentStock <= 0))
-      .slice(0, 16);
-    list = [...featured, ...extra].filter((p, i, arr) => arr.findIndex(x => x.id === p.id) === i).slice(0, 16);
-  }
-  if (list.length === 0) return;
   const section = $('#featured-section');
+  if (!section) return;
   section.hidden = false;
   const track = $('#featured-track');
   track.innerHTML = '';
-  list.forEach(p => track.appendChild(productCard(p)));
 
+  // Genero los 8 cards, cada uno linkeado a un producto real (si existe)
+  const cards = FEATURED_CARDS.map(c => {
+    const product = findProductByKeywords(c.match);
+    return { ...c, product };
+  });
+
+  // Duplico para loop infinito perfecto
+  const allCards = [...cards, ...cards];
+  allCards.forEach(c => track.appendChild(makeFeaturedCard(c)));
+
+  // Activar auto-scroll después de un frame
+  requestAnimationFrame(() => startFeaturedAutoScroll(track, cards.length));
+
+  // Oculto las flechas (ya no se usan, hay auto-scroll)
   const prev = $('#carousel-prev');
   const next = $('#carousel-next');
-  const scrollBy = () => {
-    const card = track.querySelector('.product-card');
-    return card ? (card.offsetWidth + 18) * 2 : 480;
-  };
-  prev.onclick = () => track.scrollBy({ left: -scrollBy(), behavior: 'smooth' });
-  next.onclick = () => track.scrollBy({ left: scrollBy(), behavior: 'smooth' });
+  if (prev) prev.style.display = 'none';
+  if (next) next.style.display = 'none';
+}
 
-  const updateCtrls = () => {
-    prev.disabled = track.scrollLeft <= 4;
-    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-  };
-  track.addEventListener('scroll', updateCtrls, { passive: true });
-  setTimeout(updateCtrls, 100);
+function makeFeaturedCard(card) {
+  const el = document.createElement('article');
+  el.className = 'featured-card';
+  el.innerHTML = `<img src="${escapeHtml(card.img)}" alt="${escapeHtml((card.product && card.product.title) || 'Producto destacado')}" loading="lazy" />`;
+  if (card.product) {
+    el.onclick = () => openProduct(card.product);
+  } else {
+    // Si no encontró producto, scroll al catálogo
+    el.onclick = () => {
+      const cat = document.getElementById('categories');
+      if (cat) cat.scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+  return el;
+}
+
+let FEATURED_RAF;
+function startFeaturedAutoScroll(track, originalCount) {
+  // Scroll continuo izq → der vía JS rAF. Se reinicia cuando llega al 50%
+  // del contenido (segundo duplicado) para loop seamless.
+  let pos = 0;
+  let lastT = performance.now();
+  const SPEED_PX_S = 30; // lento y elegante (~15s por card cruzando)
+  let paused = false;
+  track.addEventListener('mouseenter', () => { paused = true; });
+  track.addEventListener('mouseleave', () => { paused = false; });
+
+  function frame(now) {
+    const dt = (now - lastT) / 1000;
+    lastT = now;
+    if (!paused) {
+      pos += SPEED_PX_S * dt;
+      const half = track.scrollWidth / 2;
+      if (pos >= half) pos -= half;
+      track.style.transform = `translate3d(${-pos}px, 0, 0)`;
+    }
+    FEATURED_RAF = requestAnimationFrame(frame);
+  }
+  if (FEATURED_RAF) cancelAnimationFrame(FEATURED_RAF);
+  FEATURED_RAF = requestAnimationFrame(frame);
 }
 
 // ===== CATEGORY ACCORDION =====
