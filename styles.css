@@ -335,12 +335,39 @@ h1, h2, h3, h4, p { margin: 0; }
    HERO
    ==================================================================== */
 .hero {
-  /* Padding adaptativo a la altura del viewport:
-     - monitor alto (1080p+): 36px / 32px
-     - monitor bajo (1280x800): se comprime a ~16px / 14px
-     Garantiza que el "Más vendidos" entre sin scrollear */
+  /* Padding adaptativo a la altura del viewport */
   padding: clamp(14px, 3.6vh, 36px) 0 clamp(12px, 3.2vh, 32px);
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* === Glow horizontal extendido: la atmósfera del podio se "contagia" al
+   título de la izquierda y a los badges de la derecha === */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8%;
+  right: -8%;
+  height: 90%;
+  transform: translateY(-50%);
+  background: radial-gradient(
+    ellipse 55% 90% at 50% 50%,
+    rgba(0, 240, 255, .26) 0%,
+    rgba(0, 200, 255, .14) 25%,
+    rgba(60, 130, 200, .07) 50%,
+    rgba(15, 60, 100, .03) 70%,
+    transparent 90%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: -2;
+  animation: heroHorizontalGlow 7s ease-in-out infinite;
+}
+@keyframes heroHorizontalGlow {
+  0%, 100% { opacity: .85; transform: translateY(-50%) scaleX(1); }
+  50%      { opacity: 1;   transform: translateY(-50%) scaleX(1.04); }
 }
 .hero-grid {
   display: grid;
@@ -348,7 +375,28 @@ h1, h2, h3, h4, p { margin: 0; }
   gap: 32px;
   align-items: center;
 }
-.hero-text { text-align: left; max-width: 560px; }
+.hero-text {
+  text-align: left;
+  max-width: 560px;
+  position: relative;
+  z-index: 1;
+}
+/* Overlay oscuro sutil detrás del texto para legibilidad cuando el glow
+   horizontal pasa por encima. Solo en su zona, con bordes suaves. */
+.hero-text::before {
+  content: '';
+  position: absolute;
+  inset: -30px -40px;
+  background: radial-gradient(
+    ellipse 75% 90% at 35% 50%,
+    rgba(7, 7, 13, .42) 0%,
+    rgba(7, 7, 13, .22) 50%,
+    transparent 85%
+  );
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: -1;
+}
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 14px;
   color: var(--neon-cyan-soft);
@@ -403,6 +451,23 @@ h1, h2, h3, h4, p { margin: 0; }
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+/* Overlay sutil detrás de los badges también, lado derecho */
+.hero-trust::before {
+  content: '';
+  position: absolute;
+  inset: -20px -30px;
+  background: radial-gradient(
+    ellipse 80% 90% at 65% 50%,
+    rgba(7, 7, 13, .35) 0%,
+    rgba(7, 7, 13, .18) 50%,
+    transparent 85%
+  );
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ====================================================================
@@ -417,16 +482,17 @@ h1, h2, h3, h4, p { margin: 0; }
   pointer-events: none;
   isolation: isolate;
 }
-/* Glow grande detrás de la imagen — la integra al fondo, hace que irradie */
+/* Glow central del podio: ahora más sutil porque el glow horizontal del hero
+   provee la atmósfera principal. Este queda como acento central. */
 .hero-podium::before {
   content: '';
   position: absolute;
   inset: -25%;
   background: radial-gradient(
     circle at 50% 55%,
-    rgba(0, 240, 255, .28) 0%,
-    rgba(0, 200, 255, .12) 25%,
-    rgba(15, 60, 100, .08) 50%,
+    rgba(0, 240, 255, .18) 0%,
+    rgba(0, 200, 255, .08) 25%,
+    rgba(15, 60, 100, .04) 50%,
     transparent 75%
   );
   filter: blur(40px);
