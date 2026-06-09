@@ -419,7 +419,9 @@ function startFeaturedAutoScroll(track, originalCount) {
   // del contenido (segundo duplicado) para loop seamless.
   let pos = 0;
   let lastT = performance.now();
-  const SPEED_PX_S = 30; // lento y elegante (~15s por card cruzando)
+  // Velocidad proporcional al viewport: una card cruza la pantalla en el
+  // mismo tiempo sin importar el tamaño del monitor (~2% de viewport/s)
+  const SPEED_PX_S = Math.max(25, window.innerWidth * 0.02);
   let paused = false;
   track.addEventListener('mouseenter', () => { paused = true; });
   track.addEventListener('mouseleave', () => { paused = false; });

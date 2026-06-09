@@ -65,7 +65,7 @@ input, button { font-family: inherit; }
 h1, h2, h3, h4, p { margin: 0; }
 [hidden] { display: none !important; }
 
-.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 1440px; margin: 0 auto; padding: 0 24px; }
 .muted { color: var(--muted); }
 
 /* ====================================================================
@@ -335,7 +335,11 @@ h1, h2, h3, h4, p { margin: 0; }
    HERO
    ==================================================================== */
 .hero {
-  padding: 36px 0 32px;
+  /* Padding adaptativo a la altura del viewport:
+     - monitor alto (1080p+): 36px / 32px
+     - monitor bajo (1280x800): se comprime a ~16px / 14px
+     Garantiza que el "Más vendidos" entre sin scrollear */
+  padding: clamp(14px, 3.6vh, 36px) 0 clamp(12px, 3.2vh, 32px);
   position: relative;
 }
 .hero-grid {
@@ -351,7 +355,7 @@ h1, h2, h3, h4, p { margin: 0; }
   font-size: .7rem;
   font-weight: 600;
   letter-spacing: .35em;
-  margin-bottom: 14px;
+  margin-bottom: clamp(8px, 1.6vh, 14px);
 }
 .eyebrow-line {
   width: 40px; height: 1px;
@@ -359,11 +363,13 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+  /* Tamaño adaptativo a la altura también: en monitores bajos baja el font
+     para no comerse el espacio del Featured */
+  font-size: clamp(1.8rem, min(4.2vw, 5.2vh), 3.5rem);
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -.01em;
-  margin-bottom: 18px;
+  margin-bottom: clamp(8px, 1.8vh, 18px);
   color: #fff;
 }
 /* Cada línea del título se mantiene en una sola fila — preserva el layout
@@ -381,10 +387,10 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .hero-sub {
   color: var(--text-soft);
-  font-size: 1rem;
+  font-size: clamp(.85rem, .95vw, 1rem);
   max-width: 500px;
-  margin: 0 0 26px;
-  line-height: 1.6;
+  margin: 0 0 clamp(14px, 2.4vh, 26px);
+  line-height: 1.55;
 }
 .hero-sub strong { color: var(--neon-cyan); font-weight: 600; }
 .hero-cta {
@@ -434,7 +440,8 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .podium-img {
   width: 100%;
-  max-width: 520px;
+  /* Max-width adaptativo a la altura: monitores altos hasta 520px, bajos a ~380 */
+  max-width: clamp(320px, 56vh, 520px);
   height: auto;
   display: block;
   /* Plana, sin profundidad: sin drop-shadow */
@@ -476,12 +483,12 @@ h1, h2, h3, h4, p { margin: 0; }
    ==================================================================== */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 22px;
+  padding: clamp(9px, 1.4vh, 11px) clamp(18px, 2vw, 22px);
   background: var(--grad-cyan);
   color: #04101a;
   border-radius: 999px;
   font-weight: 700;
-  font-size: .88rem;
+  font-size: clamp(.82rem, .9vw, .88rem);
   letter-spacing: .02em;
   transition: all .25s;
   box-shadow: var(--shadow-glow-cyan);
@@ -511,13 +518,13 @@ h1, h2, h3, h4, p { margin: 0; }
 .btn-block { width: 100%; justify-content: center; }
 .btn-secondary {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 22px;
+  padding: clamp(9px, 1.4vh, 11px) clamp(18px, 2vw, 22px);
   background: transparent;
   color: var(--text);
   border: 1.5px solid var(--line-strong);
   border-radius: 999px;
   font-weight: 600;
-  font-size: .88rem;
+  font-size: clamp(.82rem, .9vw, .88rem);
   transition: all .25s;
 }
 .btn-secondary:hover {
@@ -587,7 +594,7 @@ h1, h2, h3, h4, p { margin: 0; }
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  padding: 10px 0 12px;
+  padding: clamp(4px, 1.2vh, 10px) 0 clamp(6px, 1.4vh, 12px);
   flex-wrap: wrap;
 }
 .section-head-cats { padding-top: 28px; }
@@ -610,7 +617,7 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ====================================================================
    CAROUSEL
    ==================================================================== */
-.featured { padding: 8px 0 16px; }
+.featured { padding: clamp(4px, 1vh, 8px) 0 clamp(8px, 1.8vh, 16px); }
 .carousel-controls { display: flex; gap: 8px; }
 .ctrl-btn {
   width: 44px; height: 44px;

@@ -44,7 +44,9 @@
   let marqueeStopped = false;
 
   function setupMarquees() {
-    const SPEED_PX_S = 90; // velocidad: ~90 px/s (de 5/10 → 3/10, -40%)
+    // Velocidad proporcional al viewport (la marca cruza el ancho en el mismo
+    // tiempo sin importar el tamaño del monitor). Equivalente a ~5% de viewport/s.
+    const SPEED_PX_S = Math.max(70, window.innerWidth * 0.05);
     document.querySelectorAll('.brand-marquee-track').forEach((track, i) => {
       // dir: top → izquierda (-1), bottom (reverse) → derecha (+1)
       const dir = track.classList.contains('brand-marquee-reverse') ? +1 : -1;
