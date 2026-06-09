@@ -339,7 +339,8 @@ h1, h2, h3, h4, p { margin: 0; }
   padding: clamp(14px, 3.6vh, 36px) 0 clamp(12px, 3.2vh, 32px);
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* Sin overflow:hidden para que el blur del glow se extienda
+     naturalmente hacia abajo y se funda con el Featured (sin línea visible) */
 }
 
 /* === Glow horizontal extendido: la atmósfera del podio se "contagia" al
@@ -350,10 +351,12 @@ h1, h2, h3, h4, p { margin: 0; }
   top: 50%;
   left: -8%;
   right: -8%;
-  height: 90%;
-  transform: translateY(-50%);
+  /* Aumento la altura y muevo el centro un toque arriba para que el
+     glow se "derrame" hacia abajo, fundiéndose con el Featured */
+  height: 130%;
+  transform: translateY(-46%);
   background: radial-gradient(
-    ellipse 55% 90% at 50% 50%,
+    ellipse 55% 75% at 50% 45%,
     rgba(0, 240, 255, .26) 0%,
     rgba(0, 200, 255, .14) 25%,
     rgba(60, 130, 200, .07) 50%,
@@ -698,7 +701,31 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ====================================================================
    CAROUSEL
    ==================================================================== */
-.featured { padding: clamp(4px, 1vh, 8px) 0 clamp(8px, 1.8vh, 16px); }
+.featured {
+  padding: clamp(4px, 1vh, 8px) 0 clamp(8px, 1.8vh, 16px);
+  position: relative;
+  isolation: isolate;
+}
+/* Glow "espejo" en el tope del Featured: continúa la atmósfera del hero
+   para que NO se vea ninguna línea divisoria. La transición es 100% gradual. */
+.featured::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: -8%;
+  right: -8%;
+  height: 160px;
+  background: radial-gradient(
+    ellipse 55% 100% at 50% 50%,
+    rgba(0, 200, 255, .14) 0%,
+    rgba(0, 200, 255, .07) 30%,
+    rgba(15, 60, 100, .03) 60%,
+    transparent 90%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: -1;
+}
 .carousel-controls { display: flex; gap: 8px; }
 .ctrl-btn {
   width: 44px; height: 44px;
