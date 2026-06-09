@@ -1881,6 +1881,38 @@ h1, h2, h3, h4, p { margin: 0; }
   .hero-trust { grid-template-columns: 1fr; }
 }
 
+/* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
+   En estos viewports el Featured cae abajo del fold y se cortan los precios. */
+@media (max-height: 850px) {
+  .hero { padding: 6px 0 4px; }
+  .hero-eyebrow { margin-bottom: 4px; font-size: .62rem; }
+  .hero-title {
+    font-size: clamp(1.55rem, 3.4vw, 2.15rem) !important;
+    line-height: 1.05;
+    margin-bottom: 6px !important;
+  }
+  .hero-sub {
+    font-size: .78rem !important;
+    margin: 0 0 10px !important;
+    line-height: 1.4;
+  }
+  .hero-cta { gap: 8px; }
+  .btn-primary, .btn-secondary {
+    padding: 7px 14px !important;
+    font-size: .78rem !important;
+  }
+  .podium-img { max-width: clamp(240px, 44vh, 360px) !important; }
+  .trust-item { padding: 8px 10px !important; gap: 8px !important; }
+  .trust-icon { width: 30px !important; height: 30px !important; }
+  .trust-icon svg { width: 15px !important; height: 15px !important; }
+  .trust-item strong { font-size: .76rem !important; }
+  .trust-item small { font-size: .66rem !important; }
+  .featured { padding: 0 0 6px !important; }
+  .section-head { padding: 2px 0 4px !important; }
+  .section-title { font-size: clamp(1.15rem, 2vw, 1.5rem) !important; }
+  .section-eyebrow { font-size: .58rem !important; margin-bottom: 2px !important; }
+}
+
 /* ====================================================================
    LANDING PARTICLE FX (overlay one-shot)
    ==================================================================== */
