@@ -2720,8 +2720,8 @@ body.fx-active > *:not(#landing-fx):not(script):not(style) {
 .landing-hint {
   position: absolute;
   bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2736,9 +2736,12 @@ body.fx-active > *:not(#landing-fx):not(script):not(style) {
   pointer-events: none;
 }
 .landing-hint svg { opacity: .7; }
+/* El texto con letter-spacing tiene un "espacio fantasma" al final.
+   Compenso con padding-left para que se vea ópticamente centrado. */
+.landing-hint > span { padding-left: .35em; }
 @keyframes hintBounce {
-  0%, 100% { transform: translate(-50%, 0); opacity: .85; }
-  50% { transform: translate(-50%, 6px); opacity: 1; }
+  0%, 100% { transform: translateY(0); opacity: .85; }
+  50%      { transform: translateY(6px); opacity: 1; }
 }
 
 @media (max-width: 600px) {
