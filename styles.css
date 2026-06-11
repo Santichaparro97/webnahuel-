@@ -2287,6 +2287,94 @@ h1, h2, h3, h4, p { margin: 0; }
   .hero-title { font-size: 1.55rem !important; }
 }
 
+/* ====================================================================
+   MOBILE FAB STACK (4 botones flotantes a la derecha) — solo mobile
+   ==================================================================== */
+.mobile-fab-stack {
+  display: none; /* oculto por default, solo aparece en mobile */
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 10px;
+  z-index: 80;
+  pointer-events: none; /* para que los botones interiores capturen */
+}
+.mobile-fab-stack > * { pointer-events: auto; }
+.m-fab {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: rgba(7, 7, 13, .85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line-strong);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .45);
+  cursor: pointer;
+  position: relative;
+  transition: transform .15s, background .15s, color .15s, border-color .15s;
+}
+.m-fab:active {
+  transform: scale(.92);
+  background: var(--neon-cyan);
+  color: #04101a;
+  border-color: var(--neon-cyan);
+}
+.m-fab-wsp {
+  background: var(--wsp);
+  color: #fff;
+  border-color: var(--wsp);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, .35);
+}
+.m-fab-wsp:active { background: #1da851; color: #fff; }
+.m-fab-cart {
+  background: var(--grad-cyan);
+  color: #04101a;
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(0, 240, 255, .35);
+}
+.m-fab-cart:active { transform: scale(.92); }
+.m-fab-count {
+  position: absolute;
+  top: -3px; right: -3px;
+  background: var(--neon-magenta);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  min-width: 20px; height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 10px var(--neon-magenta);
+}
+.m-fab-count.empty { display: none; }
+
+/* === Activación en mobile ≤ 760px === */
+@media (max-width: 760px) {
+  .mobile-fab-stack { display: flex; }
+
+  /* Ocultar los botones del header (ya están en el stack flotante) */
+  .hamburger-btn,
+  .header-actions { display: none !important; }
+  /* El cart FAB original también se oculta (lo reemplaza el m-fab-cart) */
+  .cart-fab { display: none !important; }
+
+  /* === REORDEN DEL HERO en mobile: título ARRIBA de la imagen === */
+  /* Desempaqueto hero-text para poder reordenar sus hijos con order */
+  .hero-text { display: contents; }
+  .hero-eyebrow { order: 1; }
+  .hero-title   { order: 2; margin-bottom: 16px !important; }
+  .hero-podium  { order: 3; }
+  .hero-sub     { order: 4; margin-top: 14px !important; }
+  .hero-cta     { order: 5; }
+  .hero-trust   { order: 6; }
+}
+
 /* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
    En estos viewports el Featured cae abajo del fold y se cortan los precios. */
 @media (max-height: 850px) {

@@ -343,25 +343,29 @@ function renderTenant() {
   if (titleMobile) titleMobile.textContent = cleanTitle;
 }
 
-// ===== HAMBURGUESA / PANEL LATERAL MOBILE =====
+// ===== MOBILE: PANEL LATERAL + STACK DE 4 BOTONES FLOTANTES =====
 function initMobilePanel() {
-  const btn = document.getElementById('hamburger-btn');
+  const btnHeader = document.getElementById('hamburger-btn');
+  const btnFab = document.getElementById('m-fab-menu');
   const panel = document.getElementById('mobile-panel');
-  if (!btn || !panel) return;
+  if (!panel) return;
 
   function openPanel() {
     panel.hidden = false;
-    btn.classList.add('is-open');
+    if (btnHeader) btnHeader.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
   function closePanel() {
     panel.hidden = true;
-    btn.classList.remove('is-open');
+    if (btnHeader) btnHeader.classList.remove('is-open');
     document.body.style.overflow = '';
   }
-  btn.addEventListener('click', () => {
+  function togglePanel() {
     if (panel.hidden) openPanel(); else closePanel();
-  });
+  }
+  if (btnHeader) btnHeader.addEventListener('click', togglePanel);
+  if (btnFab) btnFab.addEventListener('click', togglePanel);
+
   panel.querySelectorAll('[data-mclose]').forEach(el => {
     el.addEventListener('click', closePanel);
   });
@@ -369,11 +373,21 @@ function initMobilePanel() {
     if (e.key === 'Escape' && !panel.hidden) closePanel();
   });
 
-  // Sincronizar el link de Contacto mobile con el tenant phone (WhatsApp)
-  if (TENANT && TENANT.phone) {
+  // Wiring de los 4 FABs mobile con los datos del tenant
+  if (TENANT) {
+    const igHref = TENANT.instagram ? 'https://instagram.com/' + TENANT.instagram.split('?')[0] : null;
+    const wspHref = TENANT.phone ? 'https://wa.me/' + TENANT.phone : null;
+    const igMobile = document.getElementById('m-fab-ig');
+    const wspMobile = document.getElementById('m-fab-wsp');
+    if (igMobile && igHref) igMobile.href = igHref;
+    if (wspMobile && wspHref) wspMobile.href = wspHref;
+    // Contacto del panel lateral también apunta a WhatsApp
     const contactMobile = document.getElementById('nav-contact-mobile');
-    if (contactMobile) contactMobile.href = 'https://wa.me/' + TENANT.phone;
+    if (contactMobile && wspHref) contactMobile.href = wspHref;
   }
+  // Cart button del FAB stack abre el modal del carrito
+  const cartFabMobile = document.getElementById('m-fab-cart');
+  if (cartFabMobile) cartFabMobile.addEventListener('click', openCart);
 }
 
 // ===== FEATURED CAROUSEL (más vendidos) =====
@@ -721,7 +735,7 @@ function addToCart() {
 
 function updateCartCount() {
   const total = CART.reduce((s, i) => s + i.qty, 0);
-  ['#cart-count', '#cart-header-count'].forEach(sel => {
+  ['#cart-count', '#cart-header-count', '#m-fab-cart-count'].forEach(sel => {
     const el = $(sel);
     if (!el) return;
     el.textContent = total;
