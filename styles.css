@@ -2315,10 +2315,10 @@ h1, h2, h3, h4, p { margin: 0; }
   display: none; /* oculto por default, solo aparece en mobile */
   position: fixed;
   right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* Subido arriba del todo (antes estaba al medio vertical) */
+  top: 14px;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
   z-index: 80;
   pointer-events: none; /* para que los botones interiores capturen */
 }
@@ -2378,6 +2378,9 @@ h1, h2, h3, h4, p { margin: 0; }
 /* === Activación en mobile ≤ 760px === */
 @media (max-width: 760px) {
   .mobile-fab-stack { display: flex; }
+  /* En mobile el WhatsApp del FAB stack se oculta (usuario ya lo tiene en
+     el panel lateral abierto desde el menú) */
+  #m-fab-wsp { display: none !important; }
 
   /* Ocultar los botones del header (ya están en el stack flotante) */
   .hamburger-btn,
@@ -2385,17 +2388,18 @@ h1, h2, h3, h4, p { margin: 0; }
   /* El cart FAB original también se oculta (lo reemplaza el m-fab-cart) */
   .cart-fab { display: none !important; }
 
-  /* === REORDEN DEL HERO en mobile: título + sub + CTAs ARRIBA de la imagen === */
+  /* === REORDEN DEL HERO en mobile === */
+  /* Orden: eyebrow → título → sub → CTAs → trust badges → imagen flotante */
   .hero-text { display: contents; }
-  .hero-eyebrow { order: 1; margin-bottom: 6px !important; }
-  .hero-title   { order: 2; margin-bottom: 8px !important; }
-  .hero-sub     { order: 3; margin: 0 auto 10px !important; }
-  .hero-cta     { order: 4; margin-top: 2px !important; margin-bottom: 4px; }
-  .hero-podium  { order: 5; }
-  .hero-trust   { order: 6; }
-  /* Gap reducido para que todo el bloque suba */
-  .hero-grid { gap: 10px !important; }
-  .hero { padding: 10px 0 14px !important; }
+  .hero-eyebrow { order: 1; margin-bottom: 4px !important; }
+  .hero-title   { order: 2; margin-bottom: 6px !important; }
+  .hero-sub     { order: 3; margin: 0 auto 8px !important; }
+  .hero-cta     { order: 4; margin: 0 !important; }
+  .hero-trust   { order: 5; }
+  .hero-podium  { order: 6; }
+  /* Gap minimizado para que no haya espacios vacíos */
+  .hero-grid { gap: 8px !important; }
+  .hero { padding: 8px 0 10px !important; }
 }
 
 /* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
