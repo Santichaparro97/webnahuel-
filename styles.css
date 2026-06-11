@@ -2177,7 +2177,19 @@ h1, h2, h3, h4, p { margin: 0; }
   }
   .hero-cta {
     justify-content: center;
+    align-items: center;
     gap: 10px;
+    flex-wrap: nowrap !important;
+    width: 100%;
+  }
+  /* Botones lado a lado en mobile, mismo tamaño cada uno */
+  .hero-cta .btn-primary,
+  .hero-cta .btn-secondary {
+    flex: 1 1 auto;
+    max-width: 48%;
+    padding: 10px 14px !important;
+    font-size: .8rem !important;
+    white-space: nowrap;
   }
   .hero-trust {
     grid-template-columns: 1fr 1fr;
