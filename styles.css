@@ -2389,16 +2389,31 @@ h1, h2, h3, h4, p { margin: 0; }
   .cart-fab { display: none !important; }
 
   /* === REORDEN DEL HERO en mobile === */
-  /* Orden: eyebrow → título → sub → CTAs → trust badges → imagen flotante */
+  /* Orden visible: eyebrow → título → sub → CTAs → trust badges
+     La imagen del podio queda DETRÁS del título/sub/CTAs (absolute) */
   .hero-text { display: contents; }
-  .hero-eyebrow { order: 1; margin-bottom: 4px !important; }
-  .hero-title   { order: 2; margin-bottom: 6px !important; }
-  .hero-sub     { order: 3; margin: 0 auto 8px !important; }
-  .hero-cta     { order: 4; margin: 0 !important; }
-  .hero-trust   { order: 5; }
-  .hero-podium  { order: 6; }
-  /* Gap minimizado para que no haya espacios vacíos */
-  .hero-grid { gap: 8px !important; }
+  .hero-eyebrow { order: 1; margin-bottom: 4px !important; position: relative; z-index: 2; }
+  .hero-title   { order: 2; margin-bottom: 6px !important; position: relative; z-index: 2; }
+  .hero-sub     { order: 3; margin: 0 auto 8px !important; position: relative; z-index: 2; }
+  .hero-cta     { order: 4; margin: 0 !important; position: relative; z-index: 2; }
+  .hero-trust   { order: 5; position: relative; z-index: 2; }
+
+  /* Podio: removido del flujo y posicionado DETRÁS del bloque de texto */
+  .hero-grid { position: relative; gap: 8px !important; }
+  .hero-podium {
+    order: 0;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 340px;
+    margin: 0 !important;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .42;
+  }
+
   /* Top padding +18px para alejar el hero del panel del header (9/10 → 8/10) */
   .hero { padding: 26px 0 10px !important; }
 }
