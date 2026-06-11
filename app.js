@@ -192,7 +192,7 @@ function makeCategoryCard(cat, indexInPage) {
       <p class="card-desc">${escapeHtml(meta.desc)}</p>
       <span class="card-explorar">
         Explorar
-        <span class="card-explorar-count">${cat.count} productos</span>
+        <span class="card-explorar-count">+${cat.count} productos</span>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </span>
     </div>
