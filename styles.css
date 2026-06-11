@@ -2399,7 +2399,8 @@ h1, h2, h3, h4, p { margin: 0; }
   .hero-podium  { order: 6; }
   /* Gap minimizado para que no haya espacios vacíos */
   .hero-grid { gap: 8px !important; }
-  .hero { padding: 8px 0 10px !important; }
+  /* Top padding +18px para alejar el hero del panel del header (9/10 → 8/10) */
+  .hero { padding: 26px 0 10px !important; }
 }
 
 /* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
