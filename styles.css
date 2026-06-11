@@ -2201,7 +2201,10 @@ h1, h2, h3, h4, p { margin: 0; }
     gap: 8px;
   }
   .section-title { font-size: 1.4rem !important; }
-  .featured-card { flex: 0 0 168px; }
+  .featured-card { flex: 0 0 130px; }
+  .featured-card .fc-info { padding: 8px 10px 10px; gap: 3px; }
+  .featured-card .fc-title { font-size: .65rem; min-height: 2.2em; line-height: 1.25; }
+  .featured-card .fc-price { font-size: .85rem; }
 
   /* Catálogo: 1 columna */
   .category-cards-grid {
@@ -2281,8 +2284,26 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 @media (max-width: 420px) {
-  .hero-trust { grid-template-columns: 1fr; }
-  .featured-card { flex: 0 0 70vw; }
+  /* Trust badges quedan SIEMPRE en 2x2 incluso en pantallas chicas */
+  .hero-trust { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .trust-item { padding: 8px 9px !important; gap: 8px !important; }
+  .trust-icon { width: 28px !important; height: 28px !important; }
+  .trust-icon svg { width: 14px !important; height: 14px !important; }
+  .trust-item strong { font-size: .72rem !important; }
+  .trust-item small { font-size: .62rem !important; }
+
+  /* Más vendidos: cards más compactas (8/10 → 6/10, -25%) */
+  .featured-card { flex: 0 0 52vw !important; }
+  .featured-card .fc-info { padding: 8px 10px 10px !important; gap: 3px !important; }
+  .featured-card .fc-title {
+    font-size: .62rem !important;
+    line-height: 1.25 !important;
+    min-height: 2.2em !important;
+    letter-spacing: .02em !important;
+  }
+  .featured-card .fc-price { font-size: .82rem !important; }
+  .carousel-track { gap: 10px !important; }
+
   .container { padding: 0 14px; }
   .hero-title { font-size: 1.55rem !important; }
 }
@@ -2364,14 +2385,13 @@ h1, h2, h3, h4, p { margin: 0; }
   /* El cart FAB original también se oculta (lo reemplaza el m-fab-cart) */
   .cart-fab { display: none !important; }
 
-  /* === REORDEN DEL HERO en mobile: título ARRIBA de la imagen === */
-  /* Desempaqueto hero-text para poder reordenar sus hijos con order */
+  /* === REORDEN DEL HERO en mobile: título + subtítulo ARRIBA de la imagen === */
   .hero-text { display: contents; }
   .hero-eyebrow { order: 1; }
-  .hero-title   { order: 2; margin-bottom: 16px !important; }
-  .hero-podium  { order: 3; }
-  .hero-sub     { order: 4; margin-top: 14px !important; }
-  .hero-cta     { order: 5; }
+  .hero-title   { order: 2; margin-bottom: 10px !important; }
+  .hero-sub     { order: 3; margin: 0 auto 16px !important; }
+  .hero-podium  { order: 4; }
+  .hero-cta     { order: 5; margin-top: 14px; }
   .hero-trust   { order: 6; }
 }
 
