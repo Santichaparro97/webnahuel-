@@ -2176,20 +2176,32 @@ h1, h2, h3, h4, p { margin: 0; }
     font-size: .85rem !important;
   }
   .hero-cta {
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    display: flex !important;
+    flex-direction: row !important;
     flex-wrap: nowrap !important;
-    width: 100%;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
-  /* Botones lado a lado en mobile, mismo tamaño cada uno */
-  .hero-cta .btn-primary,
-  .hero-cta .btn-secondary {
-    flex: 1 1 auto;
-    max-width: 48%;
-    padding: 10px 14px !important;
-    font-size: .8rem !important;
-    white-space: nowrap;
+  /* Botones lado a lado: cada uno toma 50% del ancho disponible */
+  .hero-cta > .btn-primary,
+  .hero-cta > .btn-secondary {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 50% !important;
+    padding: 9px 8px !important;
+    font-size: .76rem !important;
+    white-space: nowrap !important;
+    justify-content: center !important;
+    text-align: center;
+  }
+  .hero-cta > .btn-primary svg,
+  .hero-cta > .btn-secondary svg {
+    flex-shrink: 0;
+    width: 14px !important;
+    height: 14px !important;
   }
   .hero-trust {
     grid-template-columns: 1fr 1fr;
