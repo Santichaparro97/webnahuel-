@@ -2191,8 +2191,9 @@ h1, h2, h3, h4, p { margin: 0; }
     flex: 1 1 0 !important;
     min-width: 0 !important;
     max-width: 50% !important;
-    padding: 9px 8px !important;
-    font-size: .76rem !important;
+    padding: 7px 6px !important;
+    font-size: .7rem !important;
+    gap: 5px !important;
     white-space: nowrap !important;
     justify-content: center !important;
     text-align: center;
@@ -2200,8 +2201,8 @@ h1, h2, h3, h4, p { margin: 0; }
   .hero-cta > .btn-primary svg,
   .hero-cta > .btn-secondary svg {
     flex-shrink: 0;
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important;
+    height: 12px !important;
   }
   .hero-trust {
     grid-template-columns: 1fr 1fr;
