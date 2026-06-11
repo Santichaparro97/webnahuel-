@@ -2385,14 +2385,17 @@ h1, h2, h3, h4, p { margin: 0; }
   /* El cart FAB original también se oculta (lo reemplaza el m-fab-cart) */
   .cart-fab { display: none !important; }
 
-  /* === REORDEN DEL HERO en mobile: título + subtítulo ARRIBA de la imagen === */
+  /* === REORDEN DEL HERO en mobile: título + sub + CTAs ARRIBA de la imagen === */
   .hero-text { display: contents; }
-  .hero-eyebrow { order: 1; }
-  .hero-title   { order: 2; margin-bottom: 10px !important; }
-  .hero-sub     { order: 3; margin: 0 auto 16px !important; }
-  .hero-podium  { order: 4; }
-  .hero-cta     { order: 5; margin-top: 14px; }
+  .hero-eyebrow { order: 1; margin-bottom: 6px !important; }
+  .hero-title   { order: 2; margin-bottom: 8px !important; }
+  .hero-sub     { order: 3; margin: 0 auto 10px !important; }
+  .hero-cta     { order: 4; margin-top: 2px !important; margin-bottom: 4px; }
+  .hero-podium  { order: 5; }
   .hero-trust   { order: 6; }
+  /* Gap reducido para que todo el bloque suba */
+  .hero-grid { gap: 10px !important; }
+  .hero { padding: 10px 0 14px !important; }
 }
 
 /* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
