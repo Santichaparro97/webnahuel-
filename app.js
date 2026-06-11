@@ -785,15 +785,36 @@ function openCart() {
   openModal('#cart-modal');
 }
 
-async function checkoutWhatsapp() {
+function checkoutWhatsapp() {
   if (CART.length === 0) return;
   const total = CART.reduce((s, i) => s + i.price * i.qty, 0);
 
-  // 1) Guardar el pedido en Supabase si está configurado (no bloquea WhatsApp si falla)
-  let orderNumber = null;
+  // 1) Armar mensaje y URL — SINCRÓNICO para no perder el contexto de click
+  const lines = ['*Hola! Quiero hacer un pedido:*', ''];
+  CART.forEach(i => {
+    lines.push(`• ${i.title} x${i.qty} — ${fmtPrice(i.price * i.qty)}`);
+  });
+  lines.push('', `*Total:* ${fmtPrice(total)}`);
+  const msg = encodeURIComponent(lines.join('\n'));
+  const url = `https://wa.me/${TENANT.phone}?text=${msg}`;
+
+  // 2) Abrir WhatsApp INMEDIATAMENTE (mientras hay user gesture válido)
+  //    - Mobile: navega a wa.me que abre la app de WhatsApp directamente
+  //    - Desktop: abre nueva pestaña con WhatsApp Web
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    // En mobile, location.href es más confiable (wa.me dispara la app)
+    window.location.href = url;
+  } else {
+    // En desktop, intentamos popup en nueva pestaña; si fallara, fallback a href
+    const w = window.open(url, '_blank');
+    if (!w) window.location.href = url;
+  }
+
+  // 3) Guardar el pedido en Supabase EN BACKGROUND (no bloquea la apertura)
   if (window.__sb) {
     try {
-      const { data, error } = await window.__sb
+      window.__sb
         .from('orders')
         .insert({
           items: CART.map(i => ({
@@ -805,23 +826,11 @@ async function checkoutWhatsapp() {
           status: 'pendiente',
           whatsapp_sent: true,
         })
-        .select('order_number')
-        .single();
-      if (error) console.warn('No se pudo guardar el pedido en DB:', error);
-      else orderNumber = data?.order_number;
+        .then(({ error }) => {
+          if (error) console.warn('No se pudo guardar el pedido:', error);
+        });
     } catch (e) { console.warn('Error guardando pedido:', e); }
   }
-
-  // 2) Armar mensaje y abrir WhatsApp
-  const lines = ['*Hola! Quiero hacer un pedido:*'];
-  if (orderNumber) lines.push(`Pedido #${orderNumber}`);
-  lines.push('');
-  CART.forEach(i => {
-    lines.push(`• ${i.title} x${i.qty} — ${fmtPrice(i.price * i.qty)}`);
-  });
-  lines.push('', `*Total:* ${fmtPrice(total)}`);
-  const msg = encodeURIComponent(lines.join('\n'));
-  window.open(`https://wa.me/${TENANT.phone}?text=${msg}`, '_blank');
 }
 
 // ===== EVENTS =====
