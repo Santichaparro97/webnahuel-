@@ -826,20 +826,27 @@ async function checkoutWhatsapp() {
 
 // ===== EVENTS =====
 function bindEvents() {
-  let searchTO;
-  $('#search').addEventListener('input', (e) => {
-    clearTimeout(searchTO);
-    searchTO = setTimeout(() => {
-      CURRENT_SEARCH = e.target.value.trim();
-      VISIBLE_LIMIT = PAGE_SIZE;
+  // Buscador global (eliminado del UI, pero el handler queda como no-op por si vuelve)
+  const searchInput = $('#search');
+  if (searchInput) {
+    let searchTO;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTO);
+      searchTO = setTimeout(() => {
+        CURRENT_SEARCH = e.target.value.trim();
+        VISIBLE_LIMIT = PAGE_SIZE;
+        renderSearch();
+      }, 180);
+    });
+  }
+  const clearSearchBtn = $('#clear-search');
+  if (clearSearchBtn) {
+    clearSearchBtn.onclick = () => {
+      if (searchInput) searchInput.value = '';
+      CURRENT_SEARCH = '';
       renderSearch();
-    }, 180);
-  });
-  $('#clear-search').onclick = () => {
-    $('#search').value = '';
-    CURRENT_SEARCH = '';
-    renderSearch();
-  };
+    };
+  }
 
   // ----- Catalog cards: pagination + search -----
   const catPrev = $('#cat-prev');
