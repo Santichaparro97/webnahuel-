@@ -2201,10 +2201,11 @@ h1, h2, h3, h4, p { margin: 0; }
     gap: 8px;
   }
   .section-title { font-size: 1.4rem !important; }
-  .featured-card { flex: 0 0 130px; }
-  .featured-card .fc-info { padding: 8px 10px 10px; gap: 3px; }
-  .featured-card .fc-title { font-size: .65rem; min-height: 2.2em; line-height: 1.25; }
-  .featured-card .fc-price { font-size: .85rem; }
+  .featured-card { flex: 0 0 108px; }
+  .featured-card .fc-info { padding: 6px 8px 8px; gap: 2px; }
+  .featured-card .fc-title { font-size: .55rem; min-height: 2.1em; line-height: 1.22; letter-spacing: .02em; }
+  .featured-card .fc-price { font-size: .72rem; }
+  .carousel-track { gap: 9px; }
 
   /* Catálogo: 1 columna */
   .category-cards-grid {
@@ -2292,17 +2293,17 @@ h1, h2, h3, h4, p { margin: 0; }
   .trust-item strong { font-size: .72rem !important; }
   .trust-item small { font-size: .62rem !important; }
 
-  /* Más vendidos: cards más compactas (8/10 → 6/10, -25%) */
-  .featured-card { flex: 0 0 52vw !important; }
-  .featured-card .fc-info { padding: 8px 10px 10px !important; gap: 3px !important; }
+  /* Más vendidos: cards aún más compactas (6/10 → 5/10) */
+  .featured-card { flex: 0 0 44vw !important; }
+  .featured-card .fc-info { padding: 6px 8px 8px !important; gap: 2px !important; }
   .featured-card .fc-title {
-    font-size: .62rem !important;
-    line-height: 1.25 !important;
-    min-height: 2.2em !important;
+    font-size: .52rem !important;
+    line-height: 1.22 !important;
+    min-height: 2.05em !important;
     letter-spacing: .02em !important;
   }
-  .featured-card .fc-price { font-size: .82rem !important; }
-  .carousel-track { gap: 10px !important; }
+  .featured-card .fc-price { font-size: .7rem !important; }
+  .carousel-track { gap: 8px !important; }
 
   .container { padding: 0 14px; }
   .hero-title { font-size: 1.55rem !important; }
