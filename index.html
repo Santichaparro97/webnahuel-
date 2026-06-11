@@ -104,6 +104,37 @@
   <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
   <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
 
+  <!-- MOBILE SIDE PANEL (oculto por default, se abre con hamburger) -->
+  <div id="mobile-panel" class="mobile-panel" hidden>
+    <div class="mobile-panel-backdrop" data-mclose></div>
+    <aside class="mobile-panel-inner">
+      <button class="mobile-panel-close" data-mclose aria-label="Cerrar menú">×</button>
+      <div class="mobile-panel-brand">
+        <img id="logo-mobile" class="logo-mobile" alt="" />
+        <h2 id="title-mobile" class="brand-title-mobile"></h2>
+      </div>
+      <nav class="mobile-panel-nav">
+        <a href="#categories" class="mobile-nav-link" data-mclose data-nav="catalogo">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7l-8-4-8 4 8 4 8-4z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg>
+          Catálogo
+        </a>
+        <a id="nav-contact-mobile" href="#" target="_blank" rel="noopener" class="mobile-nav-link" data-mclose data-nav="contacto">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
+          Contacto
+        </a>
+        <a id="instagram-link-mobile" target="_blank" rel="noopener" class="mobile-nav-link" data-mclose>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor"/></svg>
+          Instagram
+        </a>
+        <a id="whatsapp-link-mobile" target="_blank" rel="noopener" class="mobile-nav-link wsp" data-mclose>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.6 17.2L2 22l4.9-1.6A11 11 0 1020.5 3.5z"/></svg>
+          WhatsApp
+        </a>
+      </nav>
+      <p class="mobile-panel-tagline" id="mobile-panel-tagline">Perfumería online de réplicas premium</p>
+    </aside>
+  </div>
+
   <!-- HEADER -->
   <header class="site-header">
     <div class="header-inner container">
@@ -122,6 +153,10 @@
         <a href="#categories" class="nav-link" data-nav="catalogo">Catálogo</a>
         <a id="nav-contact" href="#" target="_blank" rel="noopener" class="nav-link" data-nav="contacto">Contacto</a>
       </nav>
+      <!-- Hamburger button (visible solo en mobile) -->
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
       <div class="header-actions">
         <a id="instagram-link" target="_blank" rel="noopener" class="btn-ghost" title="Instagram">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2 0 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 2c-3.1 0-3.5 0-4.7.1-1 0-1.5.2-1.9.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.4-.3.9-.3 1.9-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c0 1 .2 1.5.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.4.1.9.3 1.9.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1 0 1.5-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.4.3-.9.3-1.9.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c0-1-.2-1.5-.3-1.9-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.4-.1-.9-.3-1.9-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.4a4.4 4.4 0 110 8.8 4.4 4.4 0 010-8.8zm0 7.3a2.9 2.9 0 100-5.8 2.9 2.9 0 000 5.8zm5.6-7.5a1 1 0 11-2 0 1 1 0 012 0z"/></svg>

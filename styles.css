@@ -1989,6 +1989,304 @@ h1, h2, h3, h4, p { margin: 0; }
   .hero-trust { grid-template-columns: 1fr; }
 }
 
+/* ====================================================================
+   HAMBURGUESA + PANEL LATERAL (mobile)
+   ==================================================================== */
+.hamburger-btn {
+  display: none;
+  width: 38px; height: 38px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.hamburger-btn span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .25s ease-out, opacity .2s;
+}
+.hamburger-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-btn.is-open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile side panel */
+.mobile-panel {
+  position: fixed; inset: 0;
+  z-index: 250;
+  display: flex;
+  pointer-events: auto;
+}
+.mobile-panel[hidden] { display: none !important; }
+.mobile-panel-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(2, 2, 8, .82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: panelFade .2s ease-out;
+}
+@keyframes panelFade { from { opacity: 0; } to { opacity: 1; } }
+.mobile-panel-inner {
+  position: relative;
+  margin-left: auto;
+  width: min(86vw, 340px);
+  height: 100vh;
+  background: linear-gradient(180deg, #0c0c1c, #07070d);
+  border-left: 1px solid var(--line-strong);
+  padding: 24px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: -25px 0 60px rgba(0,0,0,.5);
+  animation: panelSlideIn .28s cubic-bezier(.16,1,.3,1);
+  overflow-y: auto;
+}
+@keyframes panelSlideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+.mobile-panel-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  font-size: 1.8rem;
+  color: var(--text-soft);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line);
+  line-height: 1;
+}
+.mobile-panel-close:hover { color: var(--danger); border-color: var(--danger); }
+.mobile-panel-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 4px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.logo-mobile {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--bg), var(--bg)) padding-box,
+              var(--grad-neon) border-box;
+  flex-shrink: 0;
+}
+.brand-title-mobile {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin: 0;
+  background: linear-gradient(135deg, #fff 0%, #c7c7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.mobile-panel-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border-radius: 10px;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  transition: background .15s, color .15s;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--line);
+}
+.mobile-nav-link svg { flex-shrink: 0; }
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: rgba(0, 240, 255, .08);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+.mobile-nav-link.wsp { color: var(--wsp); border-color: rgba(37, 211, 102, .35); }
+.mobile-nav-link.wsp:hover { background: var(--wsp); color: #fff; }
+.mobile-panel-tagline {
+  margin: auto 0 0;
+  font-size: .72rem;
+  color: var(--muted);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* ====================================================================
+   MOBILE — adaptación global a ≤ 760px
+   ==================================================================== */
+@media (max-width: 760px) {
+  /* Header: muestro hamburguesa, oculto nav grande */
+  .header-nav { display: none; }
+  .hamburger-btn { display: inline-flex; }
+  .header-actions { gap: 8px; }
+  .btn-ghost,
+  .btn-cta { padding: 8px 10px; }
+  .btn-ghost span,
+  .btn-cta span { display: none; }
+  .brand-tagline,
+  .brand-pill { display: none; }
+  .logo { width: 48px; height: 48px; }
+  .brand-title { font-size: 1rem; }
+
+  /* Hero: apilado en 1 columna (texto → podio → badges 2x2) */
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-text {
+    text-align: center;
+    max-width: 100%;
+  }
+  .hero-text::before { display: none; }
+  .hero-eyebrow {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-size: clamp(1.6rem, 8.5vw, 2.4rem) !important;
+    text-align: center;
+  }
+  .hero-title-line { white-space: normal; }
+  .hero-sub {
+    text-align: center;
+    margin: 0 auto 18px;
+    font-size: .85rem !important;
+  }
+  .hero-cta {
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-trust {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .hero-trust::before { display: none; }
+  .trust-item { padding: 10px 12px !important; }
+  .trust-icon { width: 32px !important; height: 32px !important; }
+  .trust-icon svg { width: 16px !important; height: 16px !important; }
+  .trust-item strong { font-size: .78rem !important; }
+  .trust-item small { font-size: .68rem !important; }
+  .hero-podium { max-width: 320px; margin: 0 auto; }
+
+  /* "Más vendidos" carrusel */
+  .featured { padding: 6px 0 14px !important; }
+  .section-head {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .section-title { font-size: 1.4rem !important; }
+  .featured-card { flex: 0 0 168px; }
+
+  /* Catálogo: 1 columna */
+  .category-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .category-card {
+    min-height: 175px;
+    grid-template-columns: 1fr 30px;
+  }
+  .category-card .card-title { font-size: 1.1rem !important; }
+  .catalog-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .catalog-head-right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  #catalog-search { width: 100%; }
+  .catalog-pagination { justify-content: center; }
+
+  /* Trust strip del catálogo */
+  .catalog-trust {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px;
+    padding: 10px;
+  }
+  .trust-strip-item strong { font-size: .72rem; }
+  .trust-strip-item small { font-size: .62rem; }
+
+  /* Bottom CTA del catálogo */
+  .catalog-cta {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+    padding: 20px 18px !important;
+    text-align: center;
+  }
+  .catalog-cta-img {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* Sección "Productos por categoría" cuando se selecciona una card */
+  .category-products-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .category-products-title { font-size: 1.3rem !important; }
+
+  /* Modales */
+  .modal-product .modal-body {
+    grid-template-columns: 1fr;
+  }
+  .modal-info { padding: 22px 20px; }
+  .modal-info h2 { font-size: 1.3rem; }
+  .modal-price { font-size: 1.5rem; }
+
+  /* Cart FAB más arriba para evitar el bottom de mobile (safe area) */
+  .cart-fab {
+    bottom: 18px;
+    right: 18px;
+    width: 54px;
+    height: 54px;
+  }
+
+  /* Footer compacto */
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-trust { grid-template-columns: 1fr; }
+  .featured-card { flex: 0 0 70vw; }
+  .container { padding: 0 14px; }
+  .hero-title { font-size: 1.55rem !important; }
+}
+
 /* === Compresión adicional para monitores con altura limitada (1280x800, etc) ===
    En estos viewports el Featured cae abajo del fold y se cortan los precios. */
 @media (max-height: 850px) {

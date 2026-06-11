@@ -54,6 +54,7 @@ async function init() {
   bindEvents();
   updateCartCount();
   initAutoHideHeader();
+  initMobilePanel();
 }
 
 // ===== AUTO-HIDE HEADER =====
@@ -321,16 +322,58 @@ function renderTenant() {
 
   const igHref = TENANT.instagram ? 'https://instagram.com/' + TENANT.instagram.split('?')[0] : null;
   const wspHref = TENANT.phone ? 'https://wa.me/' + TENANT.phone : null;
-  [['#instagram-link', igHref], ['#footer-ig', igHref]].forEach(([sel, href]) => {
+  [['#instagram-link', igHref], ['#instagram-link-mobile', igHref], ['#footer-ig', igHref]].forEach(([sel, href]) => {
     const el = $(sel);
     if (!el) return;
     if (href) el.href = href; else el.style.display = 'none';
   });
-  [['#whatsapp-link', wspHref], ['#footer-wsp', wspHref], ['#topbar-wsp', wspHref], ['#hero-wsp', wspHref]].forEach(([sel, href]) => {
+  [['#whatsapp-link', wspHref], ['#whatsapp-link-mobile', wspHref], ['#footer-wsp', wspHref], ['#topbar-wsp', wspHref], ['#hero-wsp', wspHref]].forEach(([sel, href]) => {
     const el = $(sel);
     if (!el) return;
     if (href) el.href = href; else el.style.display = 'none';
   });
+
+  // Sincronizar el panel mobile con los datos del tenant
+  const logoMobile = $('#logo-mobile');
+  if (logoMobile && TENANT.logo) {
+    logoMobile.src = TENANT.logo;
+    logoMobile.alt = cleanTitle;
+  }
+  const titleMobile = $('#title-mobile');
+  if (titleMobile) titleMobile.textContent = cleanTitle;
+}
+
+// ===== HAMBURGUESA / PANEL LATERAL MOBILE =====
+function initMobilePanel() {
+  const btn = document.getElementById('hamburger-btn');
+  const panel = document.getElementById('mobile-panel');
+  if (!btn || !panel) return;
+
+  function openPanel() {
+    panel.hidden = false;
+    btn.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePanel() {
+    panel.hidden = true;
+    btn.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', () => {
+    if (panel.hidden) openPanel(); else closePanel();
+  });
+  panel.querySelectorAll('[data-mclose]').forEach(el => {
+    el.addEventListener('click', closePanel);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !panel.hidden) closePanel();
+  });
+
+  // Sincronizar el link de Contacto mobile con el tenant phone (WhatsApp)
+  if (TENANT && TENANT.phone) {
+    const contactMobile = document.getElementById('nav-contact-mobile');
+    if (contactMobile) contactMobile.href = 'https://wa.me/' + TENANT.phone;
+  }
 }
 
 // ===== FEATURED CAROUSEL (más vendidos) =====
